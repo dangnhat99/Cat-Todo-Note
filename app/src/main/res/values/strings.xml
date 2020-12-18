@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Cat Todo Note</string>
+    <string name="choose_a_sticker">Choose a Sticker</string>
+    <string name="add_new_note">Add new note</string>
+    <string name="write_the_message_here">Write the message here</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete_all_notes">Delete all notes</string>
+    <string name="are_you_sure_delete_all_your_notes">Are you delete all your notes?</string>
+</resources>
