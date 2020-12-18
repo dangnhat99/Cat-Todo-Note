@@ -7,16 +7,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.training.fragment.StickerDialogFragment;
+import android.training.recyclerviewdemo.fragment.StickerDialogFragment;
 import android.training.recyclerviewdemo.R;
 import android.training.recyclerviewdemo.adapter.NoteAdapter;
 import android.training.recyclerviewdemo.model.Note;
-import android.training.recyclerviewdemo.model.NoteColor;
 import android.training.recyclerviewdemo.utils.ChoiceDialog;
 import android.training.recyclerviewdemo.utils.EditTextDialog;
 import android.training.recyclerviewdemo.utils.event.StickerChooseEvent;
 import android.util.Log;
-import android.widget.Adapter;
 import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

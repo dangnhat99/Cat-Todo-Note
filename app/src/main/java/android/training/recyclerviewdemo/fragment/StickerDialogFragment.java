@@ -1,4 +1,4 @@
-package android.training.fragment;
+package android.training.recyclerviewdemo.fragment;
 
 import android.os.Bundle;
 import android.training.recyclerviewdemo.R;
@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
