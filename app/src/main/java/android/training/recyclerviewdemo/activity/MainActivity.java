@@ -142,11 +142,11 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.NoteA
 
     void showDialogSticker() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        Fragment prev = getFragmentManager().findFragmentByTag(DIALOG_TAG);
-        if (prev != null) {
-            fragmentTransaction.remove(prev);
-        }
-        fragmentTransaction.addToBackStack(null);
+//        Fragment prev = getFragmentManager().findFragmentByTag(DIALOG_TAG);
+//        if (prev != null) {
+//            fragmentTransaction.remove(prev);
+//        }
+//        fragmentTransaction.addToBackStack(null);
 
         StickerDialogFragment dialogFragment = new StickerDialogFragment();
         dialogFragment.show(getSupportFragmentManager(), DIALOG_TAG);
