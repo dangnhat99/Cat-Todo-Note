@@ -7,4 +7,5 @@
     <string name="cancel">Cancel</string>
     <string name="delete_all_notes">Delete all notes</string>
     <string name="are_you_sure_delete_all_your_notes">Are you delete all your notes?</string>
+    <string name="choose_a_stickrt">Choose a sticker</string>
 </resources>

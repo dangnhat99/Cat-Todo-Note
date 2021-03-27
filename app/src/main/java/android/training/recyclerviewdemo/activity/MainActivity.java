@@ -1,16 +1,20 @@
 package android.training.recyclerviewdemo.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.training.database.NoteDatabaseHelper;
 import android.training.recyclerviewdemo.fragment.StickerDialogFragment;
 import android.training.recyclerviewdemo.R;
 import android.training.recyclerviewdemo.adapter.NoteAdapter;
+import android.training.recyclerviewdemo.model.CapooCat;
 import android.training.recyclerviewdemo.model.Note;
 import android.training.recyclerviewdemo.utils.ChoiceDialog;
 import android.training.recyclerviewdemo.utils.EditTextDialog;
@@ -29,6 +33,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements NoteAdapter.NoteAdapterClickListener {
     private final static String DIALOG_TAG = "dialog";
+    private final static int STICKER_INTENT_CODE = 1;
 
     ArrayList<Note> noteArrayList = new ArrayList<>();
     NoteAdapter adapter;
@@ -129,7 +134,8 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.NoteA
     public void onImageClick(int position) {
         //todo
         itemClickPosition = position;
-        showDialogSticker();
+//        showDialogSticker();
+        showChooseStickerActivity();
     }
 
     @Override
@@ -153,6 +159,10 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.NoteA
         }
     }
 
+    private void showChooseStickerActivity() {
+        startActivityForResult(new Intent(this, SelectStickerActivity.class), STICKER_INTENT_CODE);
+    }
+
     void showDialogSticker() {
 //        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 //        Fragment prev = getFragmentManager().findFragmentByTag(DIALOG_TAG);
@@ -165,7 +175,17 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.NoteA
         dialogFragment.show(getSupportFragmentManager(), DIALOG_TAG);
     }
 
-    public void showToast() {
-        Toast.makeText(this, "haha", Toast.LENGTH_SHORT).show();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == STICKER_INTENT_CODE && resultCode == Activity.RESULT_OK) {
+            if (data != null ) {
+               String mStickerName =  data.getStringExtra(SelectStickerActivity.STICKER_EXTRA);
+
+                noteArrayList.get(itemClickPosition).setImgNote(CapooCat.valueOf(mStickerName));
+                adapter.notifyItemChanged(itemClickPosition);
+            }
+        }
     }
 }
