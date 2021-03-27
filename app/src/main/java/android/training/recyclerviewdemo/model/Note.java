@@ -1,6 +1,7 @@
 package android.training.recyclerviewdemo.model;
 
 public class Note {
+    int id;
     String content;
     boolean isDone;
     CapooCat imgNote;
@@ -10,6 +11,21 @@ public class Note {
         this.content = content;
         this.isDone = isDone;
         this.imgNote = imgNote;
+    }
+
+    public Note(int id, String content, boolean isDone, CapooCat imgNote, NoteColor color) {
+        this.id = id;
+        this.content = content;
+        this.isDone = isDone;
+        this.imgNote = imgNote;
+        this.color = color;
+    }
+
+    public Note() {
+        this.id = -1;
+        this.content = "";
+        this.imgNote = CapooCat.HAND_CLAP;
+        this.color = NoteColor.LIGHT_BLUE;
     }
 
     public Note(String content) {

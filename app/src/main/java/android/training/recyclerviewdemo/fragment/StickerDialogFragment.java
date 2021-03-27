@@ -2,6 +2,7 @@ package android.training.recyclerviewdemo.fragment;
 
 import android.os.Bundle;
 import android.training.recyclerviewdemo.R;
+import android.training.recyclerviewdemo.activity.MainActivity;
 import android.training.recyclerviewdemo.adapter.StickerAdapter;
 import android.training.recyclerviewdemo.model.CapooCat;
 import android.training.recyclerviewdemo.utils.event.StickerChooseEvent;
@@ -36,6 +37,7 @@ public class StickerDialogFragment extends DialogFragment {
     }
 
     void initView(View view) {
+
         rvSticker = view.findViewById(R.id.rvSticker);
 
         adapter = new StickerAdapter(getContext(), position -> {
@@ -48,6 +50,5 @@ public class StickerDialogFragment extends DialogFragment {
     }
 
     void initListener() {
-
     }
 }

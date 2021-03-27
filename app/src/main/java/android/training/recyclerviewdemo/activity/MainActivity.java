@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.training.database.NoteDatabaseHelper;
 import android.training.recyclerviewdemo.fragment.StickerDialogFragment;
 import android.training.recyclerviewdemo.R;
 import android.training.recyclerviewdemo.adapter.NoteAdapter;
@@ -16,6 +17,7 @@ import android.training.recyclerviewdemo.utils.EditTextDialog;
 import android.training.recyclerviewdemo.utils.event.StickerChooseEvent;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.NoteA
 
     int itemClickPosition = -1;
 
+    NoteDatabaseHelper noteDatabaseHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +51,10 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.NoteA
     }
 
     void initView() {
+        noteDatabaseHelper = new NoteDatabaseHelper(this);
+
+        noteArrayList.addAll(noteDatabaseHelper.getAllNotes());
+
         rvNote = findViewById(R.id.rvNote);
         fabAddNote = findViewById(R.id.fabAddNote);
         btnDeleteAll = findViewById(R.id.btnDeleteAll);
@@ -69,8 +77,12 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.NoteA
 
                 @Override
                 public void onAccept(String editText) {
-                    noteArrayList.add(new Note(editText));
-                    adapter.notifyItemInserted(noteArrayList.size() - 1);
+                    Note noteAdd = new Note(editText);
+
+                    if (noteDatabaseHelper.addNote(noteAdd)) {
+                        noteArrayList.add(new Note(editText));
+                        adapter.notifyItemInserted(noteArrayList.size() - 1);
+                    }
                 }
 
                 @Override
@@ -88,9 +100,10 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.NoteA
                     getString(R.string.are_you_sure_delete_all_your_notes),
                     getString(R.string.ok),
                     getString(R.string.cancel), () -> {
-
-                noteArrayList.clear();
-                adapter.notifyDataSetChanged();
+                if (noteDatabaseHelper.deleteAllNotes()) {
+                    noteArrayList.clear();
+                    adapter.notifyDataSetChanged();
+                };
             }).show();
         });
     }
@@ -141,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.NoteA
     }
 
     void showDialogSticker() {
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+//        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 //        Fragment prev = getFragmentManager().findFragmentByTag(DIALOG_TAG);
 //        if (prev != null) {
 //            fragmentTransaction.remove(prev);
@@ -150,5 +163,9 @@ public class MainActivity extends AppCompatActivity implements NoteAdapter.NoteA
 
         StickerDialogFragment dialogFragment = new StickerDialogFragment();
         dialogFragment.show(getSupportFragmentManager(), DIALOG_TAG);
+    }
+
+    public void showToast() {
+        Toast.makeText(this, "haha", Toast.LENGTH_SHORT).show();
     }
 }
